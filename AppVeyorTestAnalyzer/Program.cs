@@ -27,6 +27,7 @@ namespace AppVeyorTestAnalyzer
             DateTimeOffset startDate = endDate.AddDays(-daysToScan);
             await Work(client, "azure-functions-host", "v1.x", startDate, endDate);
             await Work(client, "azure-webjobs-sdk", "v2.x", startDate, endDate);
+            await Work(client, "azure-functions-host", "dev", startDate, endDate);
 
             Console.Write("Press any key to exit...");
             Console.ReadKey();
@@ -75,7 +76,7 @@ namespace AppVeyorTestAnalyzer
             while (true)
             {
                 Console.Write(".");
-                var history = await client.GetBuildHistoryAsync(project, lastBuildId);
+                var history = await client.GetBuildHistoryAsync(project, branch, lastBuildId + 1);
 
                 if (history.builds.Length == 0)
                 {

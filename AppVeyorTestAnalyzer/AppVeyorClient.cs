@@ -44,10 +44,10 @@ namespace AppVeyor
             return result;
         }
 
-        public async Task<HistoryResponse> GetBuildHistoryAsync(Project project, int? startBuildId = null)
+        public async Task<HistoryResponse> GetBuildHistoryAsync(Project project, string branch, int? startBuildId = null)
         {
             // GET /api/projects/appsvc/azure-webjobs-sdk-script-y8o14/history?recordsNumber=10&startbuildId=9817916
-            var url = $"/projects/{project.accountName}/{project.slug}/history?recordsNumber=50";
+            var url = $"/projects/{project.accountName}/{project.slug}/history?recordsNumber=50&branch={branch}";
             if (startBuildId != null)
             {
                 url += "&startbuildId=" + startBuildId;
